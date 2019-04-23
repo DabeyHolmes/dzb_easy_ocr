@@ -1,0 +1,41 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图片识别</title>
+    <link rel="stylesheet" href="{% static 'css/amazeui.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+</head>
+<body>
+
+    <div class="am-center">
+        <form class="am-form am-center" action="{% url 'my_ocr:upload' %}" method="post" enctype="multipart/form-data">
+            <input type="radio" name="type" value="6" checked="checked">MODEL 1
+            <input type="radio" name="type" value="7">MODEL 2
+            <br>
+            <i class="am-icon-cloud-upload"></i>
+            <input type="file" name="image" accept="image/*">
+            <input type="submit">
+        </form>
+    </div>
+
+    {% ifequal answer 'yes' %}
+        <div class="am-center am-g doc-am-g am-g-fixed">
+        <div class="am-u-lg-6">
+            <h4>识别结果是：</h4>
+            <p class="am-serif">
+                {% for re in res %}
+                    {{ re }}<br>
+                {% endfor %}
+            </p>
+        </div>
+
+        <div class="am-u-lg-6">
+        <img src="{% static 'img/0.jpg' %}" width="300">
+        </div>
+        </div>
+    {% endifequal %}
+
+</body>
+</html>
